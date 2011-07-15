@@ -31,7 +31,7 @@ class ExtraParser extends Parser {
     # Give the current footnote number.
     protected $footnote_counter = 1;
 
-    public function __construct()
+    public function __construct($no_markup = FALSE)
     {
         #
         # Constructor function. Initialize the parser object.
@@ -58,7 +58,7 @@ class ExtraParser extends Parser {
             "doAbbreviations" => 70,
         );
 
-        parent::__construct();
+        parent::__construct($no_markup);
     }
 
     protected function setup()
@@ -116,6 +116,8 @@ class ExtraParser extends Parser {
 
     protected function hashHTMLBlocks($text)
     {
+        if ($this->no_markup)
+            return $text;
         #
         # Hashify HTML Blocks and "clean tags".
         #

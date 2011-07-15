@@ -97,8 +97,9 @@ class Parser
     # hanlde UTF-8 if the default function does not exist.
     protected $utf8_strlen = 'mb_strlen';
 
-    public function __construct()
+    public function __construct($no_markup = FALSE)
     {
+        $this->no_markup = $no_markup;
         $this->_initDetab();
         $this->prepareItalicsAndBold();
 
@@ -1273,7 +1274,7 @@ class Parser
             ;
         }
         # Encode remaining <'s
-        $text = str_replace('<', '&lt;', $text);
+        $text = str_replace(array('<', '>'), array('&lt;', '&gt;'), $text);
 
         return $text;
     }

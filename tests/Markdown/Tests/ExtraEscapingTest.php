@@ -10,13 +10,13 @@ class EscapingTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->parser = new Parser();
+        $this->parser = new Parser(TRUE);
     }
 
     public function testHtmlEscaping()
     {
         $text = '<a>a tag injection</a>';
-        $html = '<p>&lt;a&gt;a tag injection&lt;/a&gt;</p>';
+        $html = '<p>&lt;a&gt;a tag injection&lt;/a&gt;</p>'."\n";
 
         $this->assertSame($html, $this->parser->transform($text));
     }
@@ -24,7 +24,7 @@ class EscapingTest extends \PHPUnit_Framework_TestCase
     public function testScriptEscaping()
     {
         $text = '<script>alert("haha");</script>';
-        $html = '&lt;script&gt;alert("haha");&lt;/script&gt;';
+        $html = '<p>&lt;script&gt;alert("haha");&lt;/script&gt;</p>'."\n";
 
         $this->assertSame($html, $this->parser->transform($text));
     }
